@@ -1,0 +1,46 @@
+{% load static from staticfiles %}
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8" />
+
+  <!-- Set the viewport width to device width for mobile -->
+  <meta name="viewport" content="width=device-width" />
+
+  <title>Welcome to Foundation | Blog</title>
+
+  <link rel="stylesheet" href="{% static "foundation-4.1.2/css/foundation.min.css" %}">
+
+
+  <script src="{% static "foundation-4.1.2/js/foundation.min.js" %}"></script>
+
+  <style type="text/css">
+.row.full-width {
+  max-width: 100%;
+}
+
+
+  </style>
+</head>
+<body>
+<div class='row full-width'>
+    <div class='large-3 columns'>
+        <h2>Когда?</h2>
+    </div>
+    <div class='large-3 columns'>
+        <h3>Суточная цикличность</h3>
+        <a href='#'>Завтрак</a><br/>
+        <a href='#'>Второй завтрак</a><br/>
+        <a href='#'>Обед</a><br/>
+        <a href='#'>Полдник</a><br/>
+        <a href='#'>Ужин</a><br/>
+    </div>
+    <div class='large-3 columns'>
+        <h3>Сезонная цикличность</h3>
+    </div>
+    <div class='large-3 columns'>
+        <h3>Еще по теме</h3>
+    </div>
+</div>
+</body>
