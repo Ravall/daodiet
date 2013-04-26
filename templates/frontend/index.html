@@ -12,35 +12,58 @@
 
   <link rel="stylesheet" href="{% static "foundation-4.1.2/css/foundation.min.css" %}">
 
-
+  <script src="{% static "js/jquery-2.0.0.min.js" %}"></script>
   <script src="{% static "foundation-4.1.2/js/foundation.min.js" %}"></script>
+  <script src="{% static "js/clock.js" %}"></script>
 
-  <style type="text/css">
+<style type="text/css">
+  @import url(http://fonts.googleapis.com/css?family=Poiret+One&subset=cyrillic);
 .row.full-width {
   max-width: 100%;
 }
-
+h2 {font-family: 'Poiret One';}
 
   </style>
 </head>
 <body>
-<div class='row full-width'>
-    <div class='large-3 columns'>
-        <h2>Когда?</h2>
+<div class='row'>
+    <div class='large-4 columns'>
+        <h2>Ваше местоположение</h2>
+        {{ city.city }}
+    </div>
+    <div class='large-4 columns'>
+        <h2>Режим дня</h2>
+        <canvas id="canvas" width="200" height="200"></canvas>
+
+        подъем до 6.00  (7.30)
+        7.00-8.30 <a href='#'>Завтрак</a><br/>
+        11.00-13.00 <a href='#'>Обед</a><br/>
+        15.00-18.00 <a href='#'>Ужин</a><br/>
+        19.00- 21.00 <a href='#'>Молоко</a><br/>
     </div>
     <div class='large-3 columns'>
-        <h3>Суточная цикличность</h3>
-        <a href='#'>Завтрак</a><br/>
-        <a href='#'>Второй завтрак</a><br/>
-        <a href='#'>Обед</a><br/>
-        <a href='#'>Полдник</a><br/>
-        <a href='#'>Ужин</a><br/>
+
     </div>
     <div class='large-3 columns'>
-        <h3>Сезонная цикличность</h3>
+
     </div>
     <div class='large-3 columns'>
-        <h3>Еще по теме</h3>
+
     </div>
 </div>
 </body>
+<script type="text/javascript">
+$(document).ready(function() {
+
+
+    canvas = document.getElementById('canvas');
+    ctx = canvas.getContext('2d');
+    // var width = canvas.width;
+    // var height = canvas.height;
+    clockImage = new Image();
+    clockImage.src = '{% static "images/cface.png" %}';
+    setInterval(drawScene, 1000); // loop drawScene
+})
+
+
+</script>

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import os
 import platform
 # _PATH - путь к manage.py
@@ -20,7 +22,12 @@ if DEBUG:
             'PASSWORD': 'dao_user_password',
             'HOST': '127.0.0.1',
             'PORT': '',
-        }
+        },
+        #'geo': {
+        #    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #    'NAME': 'geodjango',
+        #    'USER': 'geo',
+        #}
     }
 else:
     from dao.production import DATABASES
@@ -37,7 +44,7 @@ TIME_ZONE = 'Europe/Moscow'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'ru-RU'
+LANGUAGE_CODE = 'ru'
 
 SITE_ID = 1
 
@@ -92,6 +99,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -125,8 +133,16 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'south',
+    'ipgeo',
     'frontend',
+
 )
+
+# для пакета pygeoip
+# http://dev.maxmind.com/geoip/install/city
+GEO_CITY_DAT_FILE = '/usr/local/share/GeoIP/GeoLiteCity.dat'
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
