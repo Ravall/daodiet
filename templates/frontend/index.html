@@ -23,46 +23,176 @@
 }
 h2 {font-family: 'Poiret One';}
 
+
+
+
+.ch-grid {
+    margin: 20px 0 0 0;
+    padding: 0;
+    list-style: none;
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.ch-grid:after,
+.ch-item:before {
+    content: '';
+    display: table;
+}
+
+.ch-grid:after {
+    clear: both;
+}
+
+.ch-grid li {
+    width: 220px;
+    height: 220px;
+    display: inline-block;
+    margin: 20px;
+}
+
+.ch-item {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    cursor: default;
+    box-shadow:
+        inset 0 0 0 0 rgba(200,95,66, 0.4),
+        inset 0 0 0 16px rgba(255,255,255,0.6),
+        0 1px 2px rgba(0,0,0,0.1);
+    transition: all 0.4s ease-in-out;
+}
+
+
+.ch-img-1 {
+    background-image: url({% static "images/city/msk.jpg" %});
+}
+
+.ch-info {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s ease-in-out;
+    transform: scale(0);
+    backface-visibility: hidden;
+}
+
+.ch-info h3 {
+    color: #fff;
+    text-transform: uppercase;
+    position: relative;
+    letter-spacing: 2px;
+    font-size: 22px;
+    margin: 0 30px;
+    padding: 80px 0 0 0;
+    height: 110px;
+    font-family: 'Open Sans', Arial, sans-serif;
+    text-shadow:
+        0 0 1px #fff,
+        0 1px 2px rgba(0,0,0,0.3);
+}
+
+.ch-info p {
+    color: #fff;
+    padding: 10px 5px;
+text-shadow: -1px 0 #666, 0 1px #666, 1px 0 #666, 0 -1px #666;
+    margin: 0 30px;
+    font-size: 14px;
+    border-top: 1px solid rgba(255,255,255,0.4);
+}
+
+
+
+.ch-item {
+    box-shadow:
+        inset 0 0 0 110px rgba(200,195,166, 0.5),
+        inset 0 0 0 16px rgba(255,255,255,0.8),
+        0 1px 2px rgba(0,0,0,0.1);
+}
+.ch-item, .ch-info {
+    opacity: 1;
+    transform: scale(1);
+}
+
+div#raspisanie {
+   background-image: url({% static "images/clock_fon.png" %});
+}
   </style>
 </head>
 <body>
+<div id='raspisanie' class='full-width'>
 <div class='row'>
-    <div class='large-4 columns'>
-        <h2>Ваше местоположение</h2>
-        {{ city.city }}
+  <div class='large-6 columns'>
+    <h2>Ваше местоположение</h2>
+    <ul class="ch-grid">
+    <li>
+      <div class="ch-item ch-img-1">
+        <div class="ch-info">
+          <h3>{{ city.city }}</h3>
+          <p>
+            восход: 5:30 <br/>
+            закат: 21:30 <br/>
+            смещение: + 1:21
+          </p>
+        </div>
+      </div>
+    </li>
+    </ul>
+  <div class='row'>
+    <div class='large-7 columns'>
+      реальное время
+      <canvas id="real_time_clock" width="200" height="200"></canvas>
     </div>
-    <div class='large-4 columns'>
-        <h2>Режим дня</h2>
-        <canvas id="canvas" width="200" height="200"></canvas>
+    <div clss='large-5 columns'>
+      солнечное время
+      <canvas id="sun_time_clock" width="200" height="200"></canvas>
+    </div>
+  </div>
+</div>
+<div class='large-3 columns'>
+  <h2>Режим дня</h2>
 
-        подъем до 6.00  (7.30)
+        подъем до 6.00  (7.30)<br/>
         7.00-8.30 <a href='#'>Завтрак</a><br/>
         11.00-13.00 <a href='#'>Обед</a><br/>
         15.00-18.00 <a href='#'>Ужин</a><br/>
         19.00- 21.00 <a href='#'>Молоко</a><br/>
-    </div>
-    <div class='large-3 columns'>
+</div>
 
+  <div class='large-3 columns'>
+sds
     </div>
-    <div class='large-3 columns'>
-
-    </div>
-    <div class='large-3 columns'>
-
-    </div>
+</div>
 </div>
 </body>
 <script type="text/javascript">
 $(document).ready(function() {
 
 
-    canvas = document.getElementById('canvas');
+    canvas = document.getElementById('real_time_clock');
     ctx = canvas.getContext('2d');
     // var width = canvas.width;
     // var height = canvas.height;
     clockImage = new Image();
     clockImage.src = '{% static "images/cface.png" %}';
-    setInterval(drawScene, 1000); // loop drawScene
+    setInterval(function() { drawScene(canvas, ctx, clockImage, 0); }, 1000); // loop d
+
+
+
+    canvas2 = document.getElementById('sun_time_clock');
+    ctx2 = canvas2.getContext('2d');
+    // var width = canvas.width;
+    // var height = canvas.height;
+    clockImage2 = new Image();
+    clockImage2.src = '{% static "images/cface.png" %}';
+    setInterval(function() { drawScene(canvas2, ctx2, clockImage2, -70); }, 1000); // loop
+
+
 })
 
 

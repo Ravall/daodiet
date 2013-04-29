@@ -1,15 +1,13 @@
 // inner variables
-var canvas, ctx;
 var clockRadius = 100;
-var clockImage;
 
 // draw functions :
-function clear() { // clear canvas function
+function clear(ctx) { // clear canvas function
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
-function drawScene() { // main drawScene function
-    clear(); // clear canvas
+function drawScene(canvas, ctx, clockImage, diff) { // main drawScene function
+    clear(ctx); // clear canvas
 
     // get current time
     var date = new Date();
@@ -17,8 +15,11 @@ function drawScene() { // main drawScene function
     var minutes = date.getMinutes();
     var seconds = date.getSeconds();
     hours = hours > 12 ? hours - 12 : hours;
-    var hour = hours + minutes / 60;
-    var minute = minutes + seconds / 60;
+    var diff_hours = Math.floor(diff/60);
+    var diff_minutes = diff % 60;
+    var hour = hours + minutes / 60 + diff_hours;
+
+    var minute = minutes + seconds / 60 + diff_minutes;
 
     // save current context
     ctx.save();
