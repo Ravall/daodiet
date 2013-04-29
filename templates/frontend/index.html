@@ -1,4 +1,8 @@
 {% load static from staticfiles %}
+{% load static %}
+{% load suntimediff %}
+{% load i18n %}
+
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
@@ -67,7 +71,7 @@ h2 {font-family: 'Poiret One';}
 
 
 .ch-img-1 {
-    background-image: url({% static "images/city/msk.jpg" %});
+    background-image: url("{% get_static_prefix %}images/city/{{city.city_img}}.jpg");
 }
 
 .ch-info {
@@ -95,6 +99,14 @@ h2 {font-family: 'Poiret One';}
     text-shadow:
         0 0 1px #fff,
         0 1px 2px rgba(0,0,0,0.3);
+}
+
+.ch-info h3.large_city_name {
+    font-size: 14px;
+}
+
+.ch-info h3.x_large_city_name {
+    font-size: 10px;
 }
 
 .ch-info p {
@@ -133,11 +145,16 @@ div#raspisanie {
     <li>
       <div class="ch-item ch-img-1">
         <div class="ch-info">
-          <h3>{{ city.city }}</h3>
+          <h3
+            {% if city.city|length > 14 %}
+            class="x_large_city_name"
+            {% elif city.city|length > 10 %}
+            class="large_city_name"
+            {% endif %}>{{ city.city }}</h3>
           <p>
-            восход: 5:30 <br/>
-            закат: 21:30 <br/>
-            смещение: + 1:21
+            восход: {{ city.sunrise|date:"H:i" }} <br/>
+            закат: {{ city.sunset|date:"H:i" }} <br/>
+            смещение: {{ city.diff | suntime_diff }}
           </p>
         </div>
       </div>
