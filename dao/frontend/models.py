@@ -48,6 +48,7 @@ class MyCity:
         )
         self.zenit = (self.sunrise + (self.sunset - self.sunrise)/2)
         self.diff = self.zenit - datetime.combine(date.today(), time(12,0))
+        print self.diff.min
 
     @staticmethod
     def get_sun_positions(longitude, latitude, timezone):
@@ -57,14 +58,19 @@ class MyCity:
         sun_observ = ephem.Sun()
         sun_observ.compute()
 
-        sunrise = observ.previous_rising(sun_observ)
-        sunrise = datetime(*[int(d) for d in  sunrise.tuple()])
+        sunrise = (observ.previous_rising(sun_observ)).datetime()
+        # если текущее время до восхода солнца, то фунция previous_rising
+        # вернет предыдущий день, а нужно сегодняшний
+        if sunrise.day < (date.today()).day:
+            sunrise = (observ.next_rising(sun_observ)).datetime()
 
-        sunset = observ.next_setting(sun_observ)
-        sunset = datetime(*[int(d) for d in  sunset.tuple()])
+        sunset = (observ.next_setting(sun_observ)).datetime()
+        # если текущее время после захода солнца, то фунция next_setting
+        # вернет заход солнца на следующий день, а нужно на сегодняшний
+        if sunset.day > (date.today()).day:
+            sunset = observ.previous_setting(sun_observ).datetime()
 
         tz = pytz.timezone(timezone)
-
         sunset = sunset + tz.utcoffset(sunset)
         sunrise = sunrise + tz.utcoffset(sunrise)
 
