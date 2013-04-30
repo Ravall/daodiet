@@ -24,3 +24,4 @@ django-tinymce==1.5.1b4
 django-ipgeo==0.0.2
 pygeoip==0.2.6
 pyephem==3.7.5.1
+django-mathfilters==0.1.3

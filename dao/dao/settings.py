@@ -139,7 +139,7 @@ INSTALLED_APPS = (
     'south',
     'ipgeo',
     'frontend',
-
+    'mathfilters',
 )
 
 # для пакета pygeoip

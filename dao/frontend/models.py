@@ -12,7 +12,7 @@ from django.utils.translation import ungettext
 from django.contrib.staticfiles.storage import staticfiles_storage
 from datetime import datetime, date, time
 
-# Create your models here.
+
 class MyCity:
 
     def translite(self, string):
@@ -48,7 +48,7 @@ class MyCity:
         )
         self.zenit = (self.sunrise + (self.sunset - self.sunrise)/2)
         self.diff = self.zenit - datetime.combine(date.today(), time(12,0))
-        print self.diff.min
+
 
     @staticmethod
     def get_sun_positions(longitude, latitude, timezone):

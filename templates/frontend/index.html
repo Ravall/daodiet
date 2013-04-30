@@ -2,6 +2,7 @@
 {% load static %}
 {% load suntimediff %}
 {% load i18n %}
+{% load mathfilters %}
 
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
@@ -174,11 +175,12 @@ div#raspisanie {
 <div class='large-3 columns'>
   <h2>Режим дня</h2>
 
-        подъем до 6.00  (7.30)<br/>
-        7.00-8.30 <a href='#'>Завтрак</a><br/>
-        11.00-13.00 <a href='#'>Обед</a><br/>
-        15.00-18.00 <a href='#'>Ужин</a><br/>
-        19.00- 21.00 <a href='#'>Молоко</a><br/>
+        подъем до {{ schedule.wakeup }}<br/>
+        {{ schedule.breakfast.from }}-{{ schedule.breakfast.to }} <a href='#'></a><br/>
+        {{ schedule.lunch.from }}-{{ schedule.lunch.to }} <a href='#'></a><br/>
+        {{ schedule.dinner.from }}-{{ schedule.dinner.to }} <a href='#'></a><br/>
+        {{ schedule.sleep.from }}-{{ schedule.sleep.to }} <a href='#'></a><br/>
+
 </div>
 
   <div class='large-3 columns'>
@@ -207,7 +209,11 @@ $(document).ready(function() {
     // var height = canvas.height;
     clockImage2 = new Image();
     clockImage2.src = '{% static "images/cface.png" %}';
-    setInterval(function() { drawScene(canvas2, ctx2, clockImage2, -70); }, 1000); // loop
+    setInterval(function() {
+      drawScene(
+        canvas2, ctx2, clockImage2, {{city.diff.seconds|div:-60 }}
+      );
+    }, 1000); // loop
 
 
 })
