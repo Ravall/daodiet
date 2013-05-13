@@ -2,6 +2,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from frontend.models import MyCity
+from django.conf import settings
 
 
 def index(request):
@@ -11,6 +12,15 @@ def index(request):
 
     return render_to_response(
         'frontend/index.html',
-        {'city': city},
+        {
+            'city': city,
+            'time': {
+                'wake_up': settings.WAKEUP_TIME,
+                'breakfast': settings.BREAKFAST_TIME,
+                'lunch': settings.LUNCH_TIME,
+                'dinner': settings.DINNER_TIME,
+                'sleep': settings.SLEEP_TIME
+            }
+        },
         context_instance=RequestContext(request)
     )

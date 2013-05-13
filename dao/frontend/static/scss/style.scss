@@ -1,0 +1,75 @@
+@import "../foundation-scss/foundation.scss";
+@import "cityes";
+
+.row.full-width {
+  max-width: 100%;
+}
+
+
+a {
+  text-decoration: underline;
+  color:#87AF0E;
+  &:hover {
+    color:#000;
+  }
+
+}
+a.context {
+  border-bottom: 1px dashed #2BA6CB;
+  text-decoration: none;
+}
+
+a.active {
+  border-bottom: 0px dashed #2BA6CB;
+  color:#000;
+}
+
+
+div#aurveda_time {
+    @extend .row;
+    @extend .full-width;
+    div#location {
+        @extend .columns;
+        @extend .large-6;
+        div#clocks {
+            @extend .row;
+            div#real_time, div#sun_time {
+                @extend .columns;
+                @extend .large-6;
+                text-align: center;
+            }
+        }
+        div#informations {
+            @extend .row;
+            padding-top: 25px;
+            text-align: center;
+        }
+    }
+    div#schedule {
+        @extend .columns;
+        @extend .large-2;
+        padding-top: 25px;
+        text-align: center;
+        div {
+            padding-bottom: 10px;
+        }
+    }
+    div#informations {
+        @extend .large-4;
+        @extend .columns;
+        padding-top: 25px;
+        div#articles {
+          div.article {
+            padding-bottom: 10px;
+            a {
+              font-size:20px;
+            }
+            span {
+              font-size:14px;
+            }
+          }
+
+        }
+    }
+}
+

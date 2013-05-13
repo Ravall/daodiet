@@ -6,7 +6,8 @@ function clear(ctx) { // clear canvas function
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 }
 
-function drawScene(canvas, ctx, clockImage, diff) { // main drawScene function
+function drawScene(canvas, ctx, clockImage, diff, id_time)
+{
     clear(ctx); // clear canvas
 
     // get current time
@@ -20,7 +21,6 @@ function drawScene(canvas, ctx, clockImage, diff) { // main drawScene function
     var hour = hours + minutes / 60 + diff_hours;
 
     var minute = minutes + seconds / 60 + diff_minutes;
-
     // save current context
     ctx.save();
 

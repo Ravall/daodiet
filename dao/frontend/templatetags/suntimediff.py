@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import template
 register = template.Library()
-from datetime import timedelta
+from datetime import date, datetime, time, timedelta
+
 
 def strfdelta(tdelta, fmt):
     d = {"days": tdelta.days}
@@ -10,7 +11,12 @@ def strfdelta(tdelta, fmt):
     d["sign"] = '+' if tdelta > timedelta(seconds=1) else '-'
     return fmt.format(**d)
 
+
 @register.filter
 def suntime_diff(dimedelta):
     return strfdelta(dimedelta, "{sign}{hours}:{minutes}")
 
+
+@register.filter
+def delta(time, delta):
+    return (datetime.combine(date.today(), time) + delta).time()

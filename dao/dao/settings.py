@@ -86,7 +86,8 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -140,6 +141,17 @@ INSTALLED_APPS = (
     'ipgeo',
     'frontend',
     'mathfilters',
+    'compressor'
+)
+COMPRESS_ENABLED = True
+COMPRESS_OUTPUT_DIR = 'min'
+
+COMPRESS_PRECOMPILERS = (
+    ('text/coffeescript', 'coffee --compile --stdio'),
+    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/x-sass', 'sass {infile} {outfile}'),
+    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+    ('text/stylus', 'stylus < {infile} > {outfile}'),
 )
 
 # для пакета pygeoip
@@ -175,3 +187,5 @@ LOGGING = {
         },
     }
 }
+
+from dao.ayurveda_config import *

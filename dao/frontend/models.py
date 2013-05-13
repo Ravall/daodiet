@@ -23,7 +23,6 @@ class MyCity:
             return string.encode('utf-8')
         return eu8(unicode(string.replace(' ', '_')).encode('trans').lower())
 
-
     def _get_city_image(self, city):
         """
         определение изображения города
@@ -43,12 +42,13 @@ class MyCity:
         self.latitude = kwargs['latitude']
         self.timezone = kwargs['timezone']
         self.city_img = self._get_city_image(self.city)
-        self.sunrise, self.sunset  = self.get_sun_positions(
-             self.longitude, self.latitude, self.timezone
+        self.sunrise, self.sunset = self.get_sun_positions(
+            self.longitude, self.latitude, self.timezone
         )
         self.zenit = (self.sunrise + (self.sunset - self.sunrise)/2)
-        self.diff = self.zenit - datetime.combine(date.today(), time(12,0))
-
+        print self.sunset, self.sunrise
+        #print datetime.combine(date.today(), time(12,0))
+        self.diff = self.zenit - datetime.combine(date.today(), time(12, 0))
 
     @staticmethod
     def get_sun_positions(longitude, latitude, timezone):
@@ -61,38 +61,23 @@ class MyCity:
         sunrise = (observ.previous_rising(sun_observ)).datetime()
         # если текущее время до восхода солнца, то фунция previous_rising
         # вернет предыдущий день, а нужно сегодняшний
-        if sunrise.day < (date.today()).day:
+        if sunrise < datetime.combine(date.today(), time(0, 1)):
             sunrise = (observ.next_rising(sun_observ)).datetime()
 
         sunset = (observ.next_setting(sun_observ)).datetime()
         # если текущее время после захода солнца, то фунция next_setting
         # вернет заход солнца на следующий день, а нужно на сегодняшний
-        if sunset.day > (date.today()).day:
+        if sunset > datetime.combine(date.today(), time(23, 59)):
             sunset = observ.previous_setting(sun_observ).datetime()
 
         tz = pytz.timezone(timezone)
         sunset = sunset + tz.utcoffset(sunset)
         sunrise = sunrise + tz.utcoffset(sunrise)
-
         return (sunrise, sunset)
-
 
     def __init__(self, ip):
         class CityNotDetected(Exception):
             pass
-        # определяем по ipgeo
-        #try:
-        #    # определяем положение через ipgeo
-        #    geo = Range.objects.find(ip)
-        #    if not geo.location:
-        #        raise CityNotDetected(
-        #            'Не удалось определить через ipgeo'
-        #        )
-        #    city = geo.location.name,
-        #    longitude = geo.location.lon,
-        #    latitude = geo.location.lat
-        #
-        #except (CityNotDetected, Range.DoesNotExist):
         try:
             # если не удалось определить через ipgeo
             # то определяем через pygeoip
@@ -111,8 +96,8 @@ class MyCity:
                     geo = Range.objects.find(ip)
                     if not geo.location:
                         raise CityNotDetected(
-                        'Не удалось определить через ipgeo'
-                    )
+                            'Не удалось определить через ipgeo'
+                        )
                     city_name = geo.location.name
                     longitude = geo.location.lon
                     latitude = geo.location.lat
