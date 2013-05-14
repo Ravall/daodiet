@@ -4,10 +4,9 @@
 {% load i18n %}
 {% load mathfilters %}
 {% load compress %}
-
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"> <!--<![endif]-->
 <head>
   <meta charset="utf-8" />
 
@@ -28,69 +27,20 @@
       </style>
   {% endcompress %}
 
-  {% compress js %}
+{% compress js %}
   <script src="{% static "js/jquery-2.0.0.min.js" %}"></script>
   <script src="{% static "foundation-4.1.2/js/foundation.min.js" %}"></script>
   <script src="{% static "js/clock.js" %}"></script>
-  <script type="text/javascript">
-  $(document).ready(function() {
-    canvas = document.getElementById('real_time_clock');
-    ctx = canvas.getContext('2d');
-    clockImage = new Image();
-    clockImage.src = '{% static "images/cface.png" %}';
-    setInterval(tmp_func = function() {
-        drawScene(canvas, ctx, clockImage, 0);
-      }, 1000
-    ); // loop d
-    tmp_func()
-
-
-    canvas2 = document.getElementById('sun_time_clock');
-    ctx2 = canvas2.getContext('2d');
-    clockImage2 = new Image();
-    clockImage2.src = '{% static "images/cface.png" %}';
-    setInterval(tmp_func = function() {
-      drawScene(
-        canvas2, ctx2, clockImage2,
-        {{city.diff.seconds|div:-60 }}
-      );
-    }, 1000); // loop
-    tmp_func();
-})
-
-$('div.sun').hide();
-$('a#switch_to_sun').click(function(){
-  $('div.sun').show();
-  $('div.real').hide();
-  $('a#switch_to_sun').addClass('active');
-  $('a#switch_to_real').removeClass('active');
-})
-$('a#switch_to_real').click(function(){
-  $('div.sun').hide();
-  $('div.real').show();
-   $('a#switch_to_sun').removeClass('active');
-  $('a#switch_to_real').addClass('active');
-})
-
-</script>
-  {% endcompress %}
+{% endcompress %}
 
 
 
 <style type="text/css">
-  @import url(http://fonts.googleapis.com/css?family=Poiret+One&subset=cyrillic);
 
-div#header {
-  text-align: center;
-}
-div#header h1, div#header h1 small {
-  font-family: 'Poiret One';
 
-  font-weight: bold;
-}
-div#header h1 {
-color:#FFF;
-}
+
+
+
 
 div#raspisanie h2 {
   font-family: 'Poiret One';
@@ -102,13 +52,6 @@ div.title {
 
 
 
-
-div#header{
-  position: absolute;
-  height: 170px;
-  width: 100%;
-  background: url(http://www.thecssgallerysubmission.com/images/bg_header.png) repeat-x bottom center;
-}
 
 div#raspisanie {
   padding-top: 140px;
@@ -136,45 +79,18 @@ body {
   color: #666666;
 }
 
-
-
-
-div#footer {
-  padding-top: 30px;
-  height: 100px;
-  background: url(http://www.ohmydeer.be/img/back_footer.png)
-
-}
-
   </style>
 </head>
-{% compress css %}
-<style type="text/x-scss">
-@mixin color-link($color, $hover:#000) {
-    a,a:visited {
-        color: $color;
-    }
-    a:hover {
-        color: $hover;
-    }
-}
-
-@mixin context_link {
-    @include color-link(#666);
-}
-
-#header {
-    @include context_link;
-}
-</style>
-{% endcompress %}
 <body>
-  <div id='header'>
-    <div class='row'>
-        <h1>ДАО питания.<br/>
-        <small>Правильный подход к питанию.</small></h1>
-      </div>
+
+<div id='header'>
+  <div id='title'>
+    <h1>ДАО питания.<br/>
+    <small>Правильный подход к питанию.</small></h1>
   </div>
+</div>
+
+
 <div id='raspisanie' class='full-width'>
 <div class='row full-width'>
   <div class='large-6 small-6 columns'>
@@ -322,3 +238,44 @@ div#footer {
   </div>
 </div>
 </body>
+<script type="text/javascript">
+  $(document).ready(function() {
+    canvas = document.getElementById('real_time_clock');
+    ctx = canvas.getContext('2d');
+    clockImage = new Image();
+    clockImage.src = '{% static "images/cface.png" %}';
+    setInterval(tmp_func = function() {
+        drawScene(canvas, ctx, clockImage, 0);
+      }, 1000
+    ); // loop d
+    tmp_func()
+
+
+    canvas2 = document.getElementById('sun_time_clock');
+    ctx2 = canvas2.getContext('2d');
+    clockImage2 = new Image();
+    clockImage2.src = '{% static "images/cface.png" %}';
+    setInterval(tmp_func = function() {
+      drawScene(
+        canvas2, ctx2, clockImage2,
+        {{city.diff.seconds|div:-60 }}
+      );
+    }, 1000); // loop
+    tmp_func();
+})
+
+$('div.sun').hide();
+$('a#switch_to_sun').click(function(){
+  $('div.sun').show();
+  $('div.real').hide();
+  $('a#switch_to_sun').addClass('active');
+  $('a#switch_to_real').removeClass('active');
+})
+$('a#switch_to_real').click(function(){
+  $('div.sun').hide();
+  $('div.real').show();
+   $('a#switch_to_sun').removeClass('active');
+  $('a#switch_to_real').addClass('active');
+})
+
+</script>
