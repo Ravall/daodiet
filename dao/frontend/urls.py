@@ -9,6 +9,7 @@ from . import views
 urlpatterns = patterns(
     'frontend.views',
     url(r'^$', views.index, name='index'),
+    url(r'^example-page$', views.page, name='example-page')
 )
 
 if settings.DEBUG:

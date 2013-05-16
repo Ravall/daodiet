@@ -1,0 +1,165 @@
+{% extends 'frontend/layout.html' %}
+{% load static %}
+{% load suntimediff %}
+{% block page_title %}Пример страницы{% endblock %}
+
+{% block content %}
+    <style>
+        body{
+            background: #ebebeb;
+        }
+        div#page {
+            color: #262626;
+            margin-top:50px;
+            margin-bottom: 25px;
+            background-color:#fff;
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        div#page p,ol {
+            font: 18px/33px "Georgia", serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        div#page ul  {
+            margin-left: 25px;
+            padding-bottom: 15px;
+        }
+
+        /* LIST #1 */
+       /* LIST #2 */
+        #list2 { padding-left: 70px;    }
+        #list2 ol {
+            font-style:italic;
+            font-size:24px;
+        }
+        #list2 ol li p {
+            padding:8px;
+            font-style:normal;
+            font-family:Arial;  border-left: 1px solid #999; margin: 0px;
+        }
+#list2 ol li p em { display:block; }
+
+    div.image {
+        text-align: center;
+        padding-bottom: 30px;
+    }
+
+    div#page div.header
+    {
+        background-image: url('{% static "images/sun_clock.png" %}');
+        height: 300px;
+        background-position:150% 0%;
+        background-repeat:no-repeat;
+        border-bottom: 2px dashed #c7bb9b;
+        margin-bottom: 20px;
+
+    }
+    div#page div.header div {
+        width: 450px;
+        padding-left: 10px;
+
+    }
+    div#page div.header div p.info {
+        width: 300px;
+        font-size: 14pt;
+        font-style: italic;
+
+    }
+    div.trans {
+        background: rgba(255,255,255,.97);
+    }
+    div.fixed {
+        position: fixed;
+        top: 0; left: 0;
+    }
+    div.shadowed {
+        box-shadow: 0 1px rgba(0,0,0,.28), 0 3px rgba(0,0,0,.07);
+    }
+    div.topbar {
+        top: 0; right: 0; left: 0; z-index: 9999;
+        height: 36px;
+        background: #f8f8f8;
+        box-shadow: 0 1px 0 #cbcbcb;
+        -webkit-transition: background .2s; -moz-transition: background .2s; -o-transition: background .2s; -ms-transition: background .2s; transition: background .2s;
+    }
+
+    div.information {
+        margin-top: 30px;
+        font-family: "Verdana",serif;
+        font-size: 10pt;
+        color: #B2B2B2;
+    }
+    </style>
+    <div class="topbar fixed shadowed trans">
+        <div class='row'>
+            <div class='large-3 columns'>
+                <h4> DAO </h4>
+            </div>
+            <div class='large-9 columns'>
+                <h4> Расписание </h4>
+            </div>
+        </div>
+
+    </div>
+    <div class='row' id='page'>
+        <div class='header'>
+            <div>
+                <h1>Солнечное и реальное время</h1>
+                <p class='info'>
+                    Что такое реальное солнечное время, и как его высчитать
+                </p>
+            </div>
+        </div>
+
+        <div class='large-9 large-centered columns'>
+            <div class='row'>
+                <div class='large-4 columns'>
+                    <br/>
+                    <img src='{% static "images/sun.png" %}'>
+                    <div class='information'>
+                        Например для города {{ city.city }}:<br/>
+                        календарный полдень: {{ time.noon | date:"H:i"}} <br/>
+                        истинный полдень: {{ time.noon | delta:city.diff | date:"H:i"}}
+                    </div>
+                </div>
+                <div class='large-8 columns'>
+        <p>
+            Время, которым оперирует аювреда (а так же и другие древние учения), является истинным солнечным и оно редко совпадает с тем временем, которое показывают часы. Обществом для удобства управления социальными процессами (работа, учеба, транспорт) было принято 00:00 - временем начала нового дня, а 12:00, сооветсвенно полднем. Люди забыв понятие истинного солнечного времени, стали жить другими часами, и природная связь стала утрачиваться.
+        </p>
+    </div>
+</div>
+
+        <p>
+            На самом деле, высчитать истинное солнечное время на данный момент для любой местности не составляет труда. Для этого нужно:
+        </p>
+        <p>
+        <div class='image'>
+            <img src='{% static "images/formula_delta_real_noon.gif" %}'>
+        </div>
+        <div id='list2'>
+        <ol>
+            <li><p>Узнаем время восхода и заката. Например на <a href='http://pogoda.yandex.ru'>яндекс.погода</a></p></li>
+            <li><p>Вычитаем из времени заката время восхода (предварительно переведя в дробь, например для восхода в 5:17 получим дробь: <img src='{% static "images/formula_hour_to_frac.gif" %}'> )</p></li>
+            <li><p>Делим пополам и складываем со временем восхода - получаем истинный полдень</p></li>
+            <li><p>Из полученного результата вычитаем 12 (общепринятый полдень).</p></li>
+            <li><p>Полученное число d - есть смещение, которое нужно складывать с истинным солнечным временем для получения местного времени. (например мы получили 1.43 - это 1:26. Подъем до 6 утра будет означать для данной местности и этого времени года -  подъем до 7:26) </p></li>
+        </ol>
+    </div>
+        </p>
+        <p>
+            Если вы настроитесь просыпаться, засыпать, питаться в соответствии с истинным временем, вы почувствуете благостное влияние распорядка на вашу жизнь.
+        </p>
+        <div class='row torsunov'>
+            <div class='large-8 columns'>
+                <p> Однако, как писал Олег Торсунов, если разница с тем временем, по которому живет ваш населенный пункт составляет два часа и более, то старайтесь жить так как этого требует жизнь. Например, если реальное солнечное время 6.00, а в вашем населенном пункте в это время часы показывают 8.00 утра, то это не значит, что нужно валяться в постели до восьми. Даже при такой сильной разнице лучше стараться вставать пораньше, ближе к 6.00 утра. С другой стороны если в вашем населенном пункте вместо 6.00 утра – 4.00 утра, то придется вставать хотя бы в 5.00, иначе жизнь "даст трещину".</p>
+            </div>
+            <div class='large-4 columns'>
+                <img src='{% static "images/tosunov.jpg" %}'>
+                <hr>
+                Торсунов Олег Геннадьевич
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

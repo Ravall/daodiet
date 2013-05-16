@@ -24,3 +24,19 @@ def index(request):
         },
         context_instance=RequestContext(request)
     )
+
+def page(request):
+    city = MyCity(request.META['REMOTE_ADDR'])
+
+    return render_to_response(
+        'frontend/page.html',
+        {
+            'city': city,
+            'time': {
+                'noon': settings.WAKEUP_NOON,
+            }
+        },
+        context_instance=RequestContext(request)
+    )
+
+

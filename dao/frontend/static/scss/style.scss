@@ -6,6 +6,14 @@
   max-width: 100%;
 }
 
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Poiret One';
+}
+
+body {
+  color: #666666;
+}
+
 
 a {
   text-decoration: underline;
@@ -35,12 +43,43 @@ div#header {
     color:#FFF;
   }
   h1,div#header,h1,small {
-  font-family: 'Poiret One';
-
-  font-weight: bold;
+    font-weight: bold;
+  }
 }
+div#raspisanie_headers {
+  @extend .full-width;
+  @extend .row;
+  padding-top: 140px;
+
+  h2 {
+    font-size: 20pt;
+  }
+  .title_big {
+    padding:8px 0;
+    margin-top: 35px;
+    /*border-top: 2px dashed #c7bb9b;*/
+    border-bottom: 2px dashed #c7bb9b;
+    text-align: center;
+  }
+  div#about_location {
+    @extend .columns;
+    @extend .large-6;
+    @extend .title_big;
+
+  }
+  div#about_schedule {
+    @extend .columns;
+    @extend .large-2;
+    @extend .title_big;
+  }
+  div#about_informations {
+    @extend .columns;
+    @extend .large-4;
+    @extend .title_big;
+  }
 }
 div#aurveda_time {
+    background-image: url("/static/images/clock_fon.png");
     @extend .row;
     @extend .full-width;
     div#location {
@@ -53,8 +92,13 @@ div#aurveda_time {
                 @extend .large-6;
                 text-align: center;
             }
+            canvas#sun_time_clock,
+            canvas#real_time_clock  {
+              background-image: url("/static/images/cface.png");
+              background-size:cover;
+            }
         }
-        div#informations {
+        div.informations {
             @extend .row;
             padding-top: 25px;
             text-align: center;
@@ -93,4 +137,11 @@ div#footer {
   padding-top: 30px;
   height: 100px;
   background: url("/static/images/back_footer.png");
+  a {
+    font-size:10pt;
+    color: #999;
+    &:hover {
+      color:#fff;
+    }
+  }
 }

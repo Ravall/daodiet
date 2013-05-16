@@ -32,54 +32,6 @@
   <script src="{% static "foundation-4.1.2/js/foundation.min.js" %}"></script>
   <script src="{% static "js/clock.js" %}"></script>
 {% endcompress %}
-
-
-
-<style type="text/css">
-
-
-
-
-
-
-div#raspisanie h2 {
-  font-family: 'Poiret One';
-  font-size: 20pt;
-}
-div.title {
-  text-align: center;
-}
-
-
-
-
-div#raspisanie {
-  padding-top: 140px;
-   background-image: url({% static "images/clock_fon.png" %});
-}
-
-
-
-
-canvas#sun_time_clock,
-canvas#real_time_clock  {
-  background-image: url(
-    {% static "images/cface.png" %}
-  );
-  background-size:cover;
-}
-
-div.title{
-    padding:8px 0;
-    margin-top: 40px;
-    border-top: 2px dashed #c7bb9b;
-    border-bottom: 2px dashed #c7bb9b;
-}
-body {
-  color: #666666;
-}
-
-  </style>
 </head>
 <body>
 
@@ -91,23 +43,16 @@ body {
 </div>
 
 
-<div id='raspisanie' class='full-width'>
-<div class='row full-width'>
-  <div class='large-6 small-6 columns'>
-    <div class='title'>
-      <h2>Местоположение. <br/>Солнечное и реальное время</h2>
+<div id='raspisanie_headers'>
+    <div id='about_location'>
+        <h2>Местоположение. <br/>Солнечное и реальное время</h2>
     </div>
-  </div>
-  <div class='large-2 small-2  columns'>
-    <div class='title'>
-      <h2>Основной <br/>режим дня</h2>
+    <div id='about_schedule'>
+        <h2>Основной <br/>режим дня</h2>
     </div>
-  </div>
-  <div class='large-4 small-4 columns'>
-    <div class='title'>
-      <h2>Материалы <br/>по теме</h2>
+    <div id='about_informations'>
+        <h2>Материалы <br/>по теме</h2>
     </div>
-  </div>
 </div>
 
 
@@ -142,7 +87,7 @@ body {
       <canvas id="sun_time_clock" width="200" height="200"></canvas>
     </div>
   </div>
-  <div id='informations'>
+  <div class='informations'>
     <ul>
       <li>
         <a href='#'>Что такое солнечное время. Как расчитать смещение.</a>
