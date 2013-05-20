@@ -32,6 +32,7 @@ if DEBUG:
 else:
     from dao.production import DATABASES
 
+DJANGO_SETTINGS_MODULE = 'dao.settings'
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = ['daodiet.ru']
@@ -125,7 +126,8 @@ TEMPLATE_DIRS = (
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
     'django.core.context_processors.media',
-    'django.core.context_processors.i18n'
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.request'
 )
 
 
@@ -137,14 +139,25 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.humanize',
+    'django.contrib.markup',
+    'django.contrib.syndication',
     'south',
     'ipgeo',
     'frontend',
     'mathfilters',
-    'compressor'
+    'compressor',
+    'articles',
+    'south',
+    'dao',
+    'markitup'
+
 )
 COMPRESS_ENABLED = True
 COMPRESS_OUTPUT_DIR = 'min'
+
+#MARKITUP_FILTER = (markdown.markdown, {'safe_mode': True})
+JQUERY_URL = '/static/js/lib/jquery.js'
 
 COMPRESS_PRECOMPILERS = (
     ('text/coffeescript', 'coffee --compile --stdio'),
@@ -158,6 +171,14 @@ COMPRESS_PRECOMPILERS = (
 # http://dev.maxmind.com/geoip/install/city
 GEO_CITY_DAT_FILE = '/usr/local/share/GeoIP/GeoLiteCity.dat'
 
+
+DISQUS_USER_API_KEY = '5oG2QS96wI89LRzjhWz8BAVn9csjCug8PoInnFrxWkaApYHMv8tVpUaRLuvMi7lr'
+DISQUS_FORUM_SHORTNAME = 'DaoDiet'
+
+#ARTICLES_TEASER_LIMIT = 75
+#ARTICLES_AUTO_TAG = True
+#ARTICLES_DEFAULT_DB = 'default'
+#ARTICLES_LOOKUP_LINK_TITLE = True
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
